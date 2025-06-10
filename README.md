@@ -1,6 +1,5 @@
-[How to Run](#how-to-run-netbots) | [Write a Robot](#how-to-write-a-robot) | [Mechanics](#game-mechanics) | [Configuration](#server-configuration) | [Modules](#module-reference) | [Messages](#messages)
-
 # NetBots - DAML CODINGING TOURNAMENT
+Adapted from https://github.com/dbakewel/netbots.
 
 #### Install
 Requires only Python with standard packages. (Tested with Python 3.11.10)
