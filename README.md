@@ -3,6 +3,23 @@ Adapted from https://github.com/dbakewel/netbots.
 
 ## Install
 Requires only Python with standard packages. (Tested with Python 3.11.10)
+As described in the original README, you my install ``msgpack`` if you experience performance issues.
+
+To install binary msgpack on Windows use:
+```bash
+py -3 -m pip install msgpack-python
+```
+
+To install binary msgpack on Linux use:
+```bash
+pip3 install msgpack-python
+```
+
+To ensure the binary msgpack is being used, look for a log when the server and bots start up:
+```bash
+INFO 2020-05-28 23:11:13.115 netbots_ipc.<module>: Using binary python msgpack.
+```
+
 
 ## Run
 Simply run the [``run_netbots.py``](run_netbots.py) script to start the server, viewer, and demo robots.
