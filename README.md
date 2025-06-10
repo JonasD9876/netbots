@@ -1,10 +1,34 @@
 [How to Run](#how-to-run-netbots) | [Write a Robot](#how-to-write-a-robot) | [Mechanics](#game-mechanics) | [Configuration](#server-configuration) | [Modules](#module-reference) | [Messages](#messages)
 
-# NetBots
+# NetBots - DAML CODINGING TOURNAMENT
+
+#### Install
+Requires only Python with standard packages. (Tested with Python 3.11.10)
+
+#### Run
+Simply run the [``run_netbots.py``](run_netbots.py) script to start the server, viewer, and demo robots.
+You can add your own robot in there for testing.
+
+#### Useful Code Parts
+Basic environment properties:
+``SrvData`` in [``netbots_server.py``](src/netbots_server.py)
+
+Action interfaces:
+``MsgDef`` in [``netbots_ipc.py``](src/netbots_ipc.py)
+
+Action implementations:
+[``netbots_srcmsghl.py``](src/netbots_srcmsghl.py)
+
+Useful math functions:
+[``netbots_math.py``](src/netbots_math.py)
+
+
+
+# NetBots Original README
 
 NetBots is a python programming game. The game consists of a number of robots, 4 by default, that battle in an arena. To play, a python program must be written. The program can control the robot's speed and direction, scan for enemy robots and fire exploding shells from its canon. Robots suffer damage if they are in collisions or hit by exploding shells. The game ends when only one robot remains or the time limit is reached. Normally, many games are played in a tournament to determine which robot is the overall winner.
 
-NetBots is inspired by [RobotWar](https://en.wikipedia.org/wiki/RobotWar) from the 1970s. RobotWar has been cloned many times, one popular example is [Crobots](https://en.wikipedia.org/wiki/Crobots). 
+NetBots is inspired by [RobotWar](https://en.wikipedia.org/wiki/RobotWar) from the 1970s. RobotWar has been cloned many times, one popular example is [Crobots](https://en.wikipedia.org/wiki/Crobots).
 
 The image below is the NetBots viewer. The filled circles are robots and the unfilled circle is an explosion.
 
@@ -35,13 +59,13 @@ Below is a sample scoreboard, which is output after each game by the NetBots ser
             Average Sleep Time: 0.001589 secs.
      Steps Slower Than stepSec: 184 (0.03%)
 
-                    ---- Score -----  ------ Wins -------  --------- CanonFired ----------                       
-              Name      Points     %    Count   AvgHealth    Count   AvgDamage   TotDamage  IP:Port              
+                    ---- Score -----  ------ Wins -------  --------- CanonFired ----------
+              Name      Points     %    Count   AvgHealth    Count   AvgDamage   TotDamage  IP:Port
  ------------------------------------------------------------------------------------------------------------------
-      Super Bot v3        4727  27.9      310       40.59    29729        3.17    94094.14  127.0.0.1:20171      
-            Rascal        4411  26.1      296       42.79    24663        3.97    97828.85  127.0.0.1:20182      
-           Level 5        4371  25.8      246       36.20    28715        3.50   100594.83  127.0.0.1:20129      
-             Oscar        3418  20.2      141       35.94    21832        3.33    72758.46  127.0.0.1:20189      
+      Super Bot v3        4727  27.9      310       40.59    29729        3.17    94094.14  127.0.0.1:20171
+            Rascal        4411  26.1      296       42.79    24663        3.97    97828.85  127.0.0.1:20182
+           Level 5        4371  25.8      246       36.20    28715        3.50   100594.83  127.0.0.1:20129
+             Oscar        3418  20.2      141       35.94    21832        3.33    72758.46  127.0.0.1:20189
  ------------------------------------------------------------------------------------------------------------------
 ```
 
@@ -76,7 +100,7 @@ See [Proposed Learning Goals](docs/proposed_learning_goals.md) for further ideas
 
 ### Python 3.6 or higher
 
-NetBots uses Python 3.6 or higher (tested on python 3.7.3) which can be installed from [https://www.python.org/downloads/](https://www.python.org/downloads/). Only the standard python 3 libraries are required. 
+NetBots uses Python 3.6 or higher (tested on python 3.7.3) which can be installed from [https://www.python.org/downloads/](https://www.python.org/downloads/). Only the standard python 3 libraries are required.
 
 > If multiple versions of python are installed, ensure you are running python 3.6+, not python 3.5 or python 2. The examples in this README use the "python" command assuming python 3.6+ is the default. The command "python3" (Linux) or "py -3" (Windows) may be required to force the correct version.
 
@@ -99,7 +123,7 @@ The rundemo script will start 6 processes on the local computer: 1 server, 1 vie
 
 ## Running a Tournament
 
-There are three options available on the NetBots server that are useful for tournaments. The first changes the number of games (**-games**) in the tournament. If robots have similar skills then playing more games will flesh out which robot is best. 
+There are three options available on the NetBots server that are useful for tournaments. The first changes the number of games (**-games**) in the tournament. If robots have similar skills then playing more games will flesh out which robot is best.
 
 The second option (**-stepsec**) allows you to speed up the NetBots server. Most modern computers can run NetBots 5 times faster (or more) than the default (0.05 sec/step or 20 steps/sec). The server scoreboard will display "Steps Slower Than stepSec", which indicates when it can't keep up with the requested speed. If only a few of steps are slow (<1%) then it will not affect the game. If many steps are slow (>1%) you should stop the server and reduce its target speed.
 
@@ -113,7 +137,7 @@ python netbots_server -games 1000 -stepsec 0.01 -stepmax 2000
 
 ## Increasing Netbots Performance
 
-Running tournaments can take a long time. One way to speed up tournaments is to increase the steps per second however this may be limited by hardware. Significant performance increases can be found by installing the binary msgpack package for python. Msgpack is used to encode and decode messages between the robots and server. Running at 2000 steps/second (-stepsec 0.0005) should be possible if: modern hardware is used, binary msgpack is installed, the server and all bots are running on localhost (127.0.0.1), and no viewer is connected. 
+Running tournaments can take a long time. One way to speed up tournaments is to increase the steps per second however this may be limited by hardware. Significant performance increases can be found by installing the binary msgpack package for python. Msgpack is used to encode and decode messages between the robots and server. Running at 2000 steps/second (-stepsec 0.0005) should be possible if: modern hardware is used, binary msgpack is installed, the server and all bots are running on localhost (127.0.0.1), and no viewer is connected.
 
 To install binary msgpack on Windows use:
 ```
@@ -132,14 +156,14 @@ INFO 2020-05-28 23:11:13.115 netbots_ipc.<module>: Using binary python msgpack.
 
 ## Running Larger Tournaments on Linux
 
-The NetBots server is limited in that it runs a tournament with the same robots in every game. One solution to having more than 4 robots is to increase the number of robots (-bots server) and make the arena larger (-arenasize). While this works it also changes the game dynamics. 
+The NetBots server is limited in that it runs a tournament with the same robots in every game. One solution to having more than 4 robots is to increase the number of robots (-bots server) and make the arena larger (-arenasize). While this works it also changes the game dynamics.
 
 To run a tournament with more than 4 robots but with default settings (4 robots per game and 1000x1000 arena) the divisions_tournament.py script can be used (Linux only). It can run a tournament with a multiple of 4 robots (4, 8, 16, ...) up to 64 total. Robots are put into divisions (4 robots in each). Over consecutive rounds, better robots will move to lower numbered divisions (division 0 being the best). See the rundivisions.sh script for an example of how to run and then customize to meet your needs.
 
 
 ## Running on Separate Computers
 
-By default NetBots only listens on localhost 127.0.0.1 which does not allow messages to be sent or received between computers. To listen on all network interfaces, and allow messages from other computers, use ```-ip 0.0.0.0```. 
+By default NetBots only listens on localhost 127.0.0.1 which does not allow messages to be sent or received between computers. To listen on all network interfaces, and allow messages from other computers, use ```-ip 0.0.0.0```.
 
 > Note, if you want to run NetBots across a network then the ports you choose must be open in the OS and network firewalls for two way UDP traffic. By default, these ports are in the range 20000 - 20020 range but any available UDP ports can be used.
 
@@ -149,7 +173,7 @@ Assuming:
 *   computer 1 has IP address of 192.168.1.10
 *   computer 2 has IP address of 192.168.1.30
 
-The server can be run on computer 1 with: 
+The server can be run on computer 1 with:
 
 ```
 python netbots_server.py -ip 0.0.0.0 -p 20000
@@ -157,13 +181,13 @@ python netbots_server.py -ip 0.0.0.0 -p 20000
 
 The server will listen on 127.0.0.1 and 192.168.1.10
 
-A robot can be run on Computer 2 with: 
+A robot can be run on Computer 2 with:
 
 ```
 python robot.py -ip 0.0.0.0 -p 20010 -sip 192.168.1.10 -sp 20000
 ```
 
-A robot can also be run on Computer 1 will the default IP of 127.0.0.01 with: 
+A robot can also be run on Computer 1 will the default IP of 127.0.0.01 with:
 
 ```
 python robot.py -p 20010 -sp 20000
@@ -253,7 +277,7 @@ To write a robot you should have a basic familiarity with python 3. The links be
 * [Python for Java Programmers (YouTube 1:00:00)](https://www.youtube.com/watch?v=xLovcfIugy8)
 * [Python Introductions](https://docs.python-guide.org/intro/learning/)
 * Important Python types used in NetBots: [str](https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str), [int and float](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex), [dict](https://docs.python.org/3/tutorial/datastructures.html#dictionaries).
-* Other important python skills: [default arguments](https://www.geeksforgeeks.org/default-arguments-in-python/) and [exceptions](https://docs.python.org/3/tutorial/errors.html). 
+* Other important python skills: [default arguments](https://www.geeksforgeeks.org/default-arguments-in-python/) and [exceptions](https://docs.python.org/3/tutorial/errors.html).
 
 
 ## Demo Robots
@@ -313,14 +337,14 @@ Once a game starts, the server enters the Step/Message Loop. Each time through t
 
 ## Information Confidence
 
-The server Step/Message Loop means that robots (assuming synchronous communication) can only send one message and get one reply per step (pass through the Step/Message Loop). Since everything in the arena is moving, it is difficult to have up to date information on everything at once. 
+The server Step/Message Loop means that robots (assuming synchronous communication) can only send one message and get one reply per step (pass through the Step/Message Loop). Since everything in the arena is moving, it is difficult to have up to date information on everything at once.
 
 For example, assume a robot is moving at 100% speed (5 units/step by default) and it sends a **[getLocationRequest](#getLocation)** message asking for its location. It follows this with 3 other request messages of other types. After all the requests, the location information (the first request) will be 4 steps old. You may assume the robot has moved 20 units (4 steps * 5 units/step) however this may not be true. The robot may have hit another robot and stopped. Since you are not sure, this affects your confidence in what you know about the robot's location. Managing information and your confidence in it is a key ingredient for writing good robots.
 
 
 ## Changing Direction and Speed
 
-Robots change their speed by sending a **[setSpeedRequest](#setSpeed)** message. However, the change does not happen instantly. It takes many steps for a robot to accelerate or decelerate to their requested speed. 
+Robots change their speed by sending a **[setSpeedRequest](#setSpeed)** message. However, the change does not happen instantly. It takes many steps for a robot to accelerate or decelerate to their requested speed.
 
 If a robot hits a wall, obstacle, or another robot then currentSpeed and requestedSpeed will be set to 0. The robot will not start moving again until a new **setSpeedRequest** request is sent.
 
@@ -366,13 +390,13 @@ Points are awarded at the end of the step in which a robot dies (health == 0). H
 
 The NetBots server has many configuration options so decide on what options you will use beforehand. The default options have been picked to provide a balanced game. For example, robots at 100% speed and half way across the arena can avoid most damage from a shell fired directly at them. By the time the shell explodes they would have moved mostly out of the explosion radius. Changes to the max speed of robots (botMaxSpeed), the speed of shells (shellSpeed), or the radius of explosions (explRadius) change this aspect of the game.
 
-> Changing the speed of the Step/Message loop (stepSec) within a reasonable range will not affect the outcome of the game. This allows the server to run slower, allowing robot behavior to be observed, or faster, so tournaments can be run quickly. 
+> Changing the speed of the Step/Message loop (stepSec) within a reasonable range will not affect the outcome of the game. This allows the server to run slower, allowing robot behavior to be observed, or faster, so tournaments can be run quickly.
 
 Robots receive a copy of the server configuration in the **[joinReply](#join)** message. This is useful in determining the size of the arena among other things. For example:
 
 ```
-{ 
-    'type': 'joinReply', 
+{
+    'type': 'joinReply',
     'conf': {
         # Static vars (some are settable at start up by server command line switches and then do not change after that.)
         'serverName': "NetBot Server",
@@ -393,7 +417,7 @@ Robots receive a copy of the server configuration in the **[joinReply](#join)** 
         # Number of msgs from a bot that server will respond to each step. Others in Q will be dropped.
         'botMsgsPerStep': 4,
         'allowRejoin': True,  # Allows crashed bots to rejoin game in progress.
-        'noViewers': False,  # if True addViewerRequest messages will be rejected. 
+        'noViewers': False,  # if True addViewerRequest messages will be rejected.
 
         # Sizes
         # Area is a square with each side = arenaSize units (0,0 is bottom left,
@@ -424,7 +448,7 @@ Robots receive a copy of the server configuration in the **[joinReply](#join)** 
 
         # Misc
         'keepExplosionSteps': 10,  # Number of steps to keep old explosions in explosion dict (only useful to viewers).
-        
+
         #Robot Classes (values below override what's above for robots in that class)
         'allowClasses': False,
         #Only fields listed in classFields are allowed to be overwritten by classes.
@@ -432,7 +456,7 @@ Robots receive a copy of the server configuration in the **[joinReply](#join)** 
         'classes': {
             'default': {
                 # Default class should have no changes.
-                }, 
+                },
             [Other classes removed for brevity. See netbots_server.py for details.]
         }
     }
@@ -448,7 +472,7 @@ Robots receive a copy of the server configuration in the **[joinReply](#join)** 
 
 # netbots_log (debug output)
 
-The netbots_log module prints output to the console. Best practice is to use the log() rather than print(). log() will include the time and function name which can help with debugging. 
+The netbots_log module prints output to the console. Best practice is to use the log() rather than print(). log() will include the time and function name which can help with debugging.
 
 notbots_log allows turning detailed output on/off without having to remove log lines from your code. You can turn DEBUG and VERBOSE output on/off from the command line with -debug and -verbose. Use -h switch to learn more.
 
@@ -509,7 +533,7 @@ Return distance between points only if point falls inside a specific range of an
 In pseudocode:
 
 ```
-if angle from (x1,y1) to (x2,y2) is between startRad and 
+if angle from (x1,y1) to (x2,y2) is between startRad and
   counter clockwise to endRad then
     return distance from (x1,y1) to (x2,y2)
 else
@@ -524,7 +548,7 @@ Return distance between (x1,y1) and (x2,y2)
 
 ### intersectLineCircle(x1,y1,x2,y2,cx,cy,cradius)
 
-Return True if line segment between (x1,y1) and (x2,y2) intersects circle centered at (cx,cy) with radius cradius, or if line segment is entirely inside circle. 
+Return True if line segment between (x1,y1) and (x2,y2) intersects circle centered at (cx,cy) with radius cradius, or if line segment is entirely inside circle.
 
 
 ### normalizeAngle(a)
@@ -649,8 +673,8 @@ All keys are type str and types may include acceptable min and max values. For e
 
 
 ```
-{ 
-    'type': 'setDirectionRequest', 
+{
+    'type': 'setDirectionRequest',
     'requestedDirection': float (min 0, max 2pi)
 }
 ```
@@ -668,7 +692,7 @@ There are two special keys that can optionally be added to any request message. 
 
 [join](#join) | [getInfo](#getInfo) | [getLocation](#getLocation) | [getSpeed](#getSpeed) | [setSpeed](#setSpeed) | [getDirection](#getDirection) | [setDirection](#setDirection) | [getCanon](#getCanon) | [fireCanon](#fireCanon) | [scan](#scan) | [Error](#Error)
 
-Messages described below are grouped by request (sent by robot) and the expected reply (sent by server). All keys listed below are required. 
+Messages described below are grouped by request (sent by robot) and the expected reply (sent by server). All keys listed below are required.
 
 IMPORTANT: When a robot's health == 0, only joinRequest and getInfoRequest will return the appropriate reply. Other request messages will return a reply of type "Error" when a robot's health == 0.
 
@@ -677,7 +701,7 @@ IMPORTANT: When a robot's health == 0, only joinRequest and getInfoRequest will 
 A robot must send a joinRequest before any other message type. The server will return a joinReply if the robot has successfully joined, otherwise a message of type "Error" will be returned. Sending other message types before a join request will return a message of type "Error".
 
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'joinRequest', 'name': str (length min 1, max 16), 'class': optional str (length min 1, max 16) }`
 
@@ -687,17 +711,17 @@ Example: `{ 'type': 'joinRequest', 'name': 'Super Robot V3' }`
 
 'class' is optional. If not provided then `'class': 'default'` is assumed. 'class' can only be changed from default if the server -allowclasses option is used.
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'joinReply', 'conf': dict } `or Error
 
-Example: 
+Example:
 
 ```
-{ 
-'type': 'joinReply', 
-'conf': 
-    { 
+{
+'type': 'joinReply',
+'conf':
+    {
         'serverName': 'NetBot Server v1',
         'arenaSize': 1000
         …
@@ -714,14 +738,14 @@ Example:
 
 Gets information about the current game and robot health. If gameNumber == 0 then the server is still waiting for robots to join before is starts the first game.
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'getInfoRequest' }`
 
 Example: `{ 'type': 'getInfoRequest' }`
 
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'getInfoReply', 'gameNumber': int, 'gameStep': int, 'health': float (min 0, max 100), 'points': int }` or Error
 
@@ -731,14 +755,14 @@ Example: `{ 'type': 'getInfoReply', 'gameNumber': 5, 'gameStep': 170, 'health': 
 
 Get the robot's location in the arena.
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'getLocationRequest' }`
 
 Example: `{ 'type': 'getLocationRequest' }`
 
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'getLocationReply', 'x': float (min 0, max 999999), 'y': float (min 0, max 999999) }` or Error
 
@@ -749,14 +773,14 @@ Example: `{ 'type': 'getLocationReply', 'x': 40.343, 'y': 694.323 ) }`
 
 Get information about the robots speed. If requestedSpeed != currentSpeed then the robot is accelerating or decelerating to the requestedSpeed.
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'getSpeedRequest' }`
 
 Example: `{ 'type': 'getSpeedRequest' }`
 
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'getSpeedReply', 'requestedSpeed': float (min 0, max 100) 'currentSpeed': float (min 0, max 100) }` or Error
 
@@ -765,17 +789,17 @@ Example: `{ 'type': 'getSpeedReply', 'requestedSpeed': 80 'currentSpeed': 50.322
 
 ### setSpeed
 
-Set desired speed of robot from 0% (stop) to 100%. 
+Set desired speed of robot from 0% (stop) to 100%.
 
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'setSpeedRequest', 'requestedSpeed': float (min 0, max 100) }`
 
 Example: `{ 'type': 'setSpeedRequest', 'requestedSpeed': 100 }`
 
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'setSpeedReply' }` or Error
 
@@ -786,14 +810,14 @@ Example: `{ 'type': 'setSpeedReply' }`
 
 Gets the direction a robot will move if speed is greater than 0. If requestedDirection != currentDirection then the robot is turning towards requestedDirection.
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'getDirectionRequest' }`
 
 Example: `{ 'type': 'getDirectionRequest' }`
 
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'getDirectionReply', 'requestedDirection': float (min 0, max 2pi) 'currentDirection': float (min 0, max 2pi) }` or Error
 
@@ -805,14 +829,14 @@ Example: `{ 'type': 'getDirectionReply', 'requestedDirection': 3.282 'currentDir
 
 Set desired direction of robot from 0 to 2pi radians.
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'setDirectionRequest', 'requestedDirection': float (min 0, max 2pi) }`
 
 Example: `{ 'type': 'setDirectionRequest', 'requestedDirection': 4.823 }`
 
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'setDirectionReply' }` or Error
 
@@ -824,14 +848,14 @@ Example: `{ 'type': 'setDirectionReply' }`
 Used to determine if the robot has fired a shell that has not exploded yet.
 
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'getCanonRequest' }`
 
 Example: `{ 'type': 'getCanonRequest' }`
 
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'getCanonReply', 'shellInProgress': bool }` or Error
 
@@ -843,14 +867,14 @@ Example: `{ 'type': 'getCanonReply', 'shellInProgress': False }`
 
 Fires a shell in 'direction' angle from robot's location and will trigger it to explode once it has traveled 'distance'. If a shell is already in progress (shellInProgress == True) then this will replace the old shell and the old shell will not explode.
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'fireCanonRequest', 'direction': float (min 0, max 2pi) 'distance': float (min 10, max 1415) }`
 
 Example: `{ 'type': 'fireCanonRequest', 'direction': 3.896 'distance': 340.345 }`
 
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'fireCanonReply' }` or Error
 
@@ -859,17 +883,17 @@ Example: `{ 'type': 'fireCanonReply' }`
 
 ### scan
 
-Determines the distance to the closet enemy robot that is between startRadians and counter clockwise to endRadians angle from the robot's location. If distance == 0 then the scan did not detect any enemy robots. Robots fully within a jam zone will not be detected. Obstacles are transparent to scan, i.e., scan results are the same with or without obstacles. 
+Determines the distance to the closet enemy robot that is between startRadians and counter clockwise to endRadians angle from the robot's location. If distance == 0 then the scan did not detect any enemy robots. Robots fully within a jam zone will not be detected. Obstacles are transparent to scan, i.e., scan results are the same with or without obstacles.
 
 
-Robot Sends: 
+Robot Sends:
 
 Format: `{ 'type': 'scanRequest', 'startRadians': float (min 0, max 2pi), 'endRadians': float (min 0, max 2pi) }`
 
 Example: `{ 'type': 'scanRequest', 'startRadians': 0, 'endRadians': 1.57 }`
 
 
-Server Returns: 
+Server Returns:
 
 Format: `{ 'type': 'scanReply', 'distance': float (min 0, max 1415) }` or Error
 
@@ -878,7 +902,7 @@ Example: `{ 'type': 'scanReply', 'distance': 70 }`
 
 ### Error
 
-Server Returns: 
+Server Returns:
 
 Format:` { 'type': 'Error', 'result': str }`
 

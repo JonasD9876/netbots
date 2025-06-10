@@ -8,7 +8,7 @@ import random
 
 # include the netbot src directory in sys.path so we can import modules from it.
 robotpath = os.path.dirname(os.path.abspath(__file__))
-srcpath = os.path.join(os.path.dirname(robotpath),"src") 
+srcpath = os.path.join(os.path.dirname(robotpath),"src")
 sys.path.insert(0,srcpath)
 
 from netbots_log import log
@@ -91,7 +91,7 @@ def play(botSocket, srvConf):
                     moveDirection = math.pi * (3.0 / 4.0)
 
                 # Turn in a new direction
-                botSocket.sendRecvMessage({'type': 'setDirectionRequest', 'requestedDirection': moveDirection})
+                
 
                 # Request we start accelerating to max speed
                 botSocket.sendRecvMessage({'type': 'setSpeedRequest', 'requestedSpeed': 30})

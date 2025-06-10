@@ -17,15 +17,15 @@ except:
 """
 **About Messages**
 
-Every message is a python dict type with at least a type attribute (i.e. field) and a 
+Every message is a python dict type with at least a type attribute (i.e. field) and a
 string value.
 
 For example: { 'type': 'getInfoRequest'}
 
-MsgDef below defines valid types and additional fields that must be included and 
+MsgDef below defines valid types and additional fields that must be included and
 can optionally be included based on type.
 
-Optional fields end in '_o' which marks the fields as optional. The '_o' should not 
+Optional fields end in '_o' which marks the fields as optional. The '_o' should not
 appear in the actual message, it is just a marker that the field is optional.
 For example, a joinRequest message with optional class field would be:
 
@@ -297,7 +297,9 @@ class NetBotSocket:
         return umsgpack.packb(msg, use_bin_type=True)
 
     def deserialize(self, b):
-        return umsgpack.unpackb(b, raw=False)
+        # return umsgpack.unpackb(b, raw=False)
+        # Allow integer keys in incoming msgpack maps to match server behavior
+        return umsgpack.unpackb(b, raw=False, strict_map_key=False)
 
     def sendMessage(self, msg, destinationIP=None, destinationPort=None, packedAndChecked=False):
         """
