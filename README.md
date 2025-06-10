@@ -1,14 +1,14 @@
 # NetBots - DAML CODINGING TOURNAMENT
 Adapted from https://github.com/dbakewel/netbots.
 
-#### Install
+## Install
 Requires only Python with standard packages. (Tested with Python 3.11.10)
 
-#### Run
+## Run
 Simply run the [``run_netbots.py``](run_netbots.py) script to start the server, viewer, and demo robots.
 You can add your own robot in there for testing.
 
-#### Useful Code Parts
+## Useful Code Parts
 Basic environment properties:
 ``SrvData`` in [``netbots_server.py``](src/netbots_server.py)
 
