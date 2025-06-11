@@ -2,18 +2,22 @@
 Adapted from https://github.com/dbakewel/netbots.
 
 ## Install
-Requires only Python with standard packages. (Tested with Python 3.11.10)
-As described in the original README, you my install ``msgpack`` if you experience performance issues.
+### Requirement: **Python 3.9**
 
-To install binary msgpack on Windows use:
+You may create a conda env with:
 ```bash
-py -3 -m pip install msgpack-python
+conda create -n netbots_env python=3.9
+conda activate netbots_env
 ```
 
-To install binary msgpack on Linux use:
+### Optional: **msgpack**
+For improved performace install ``msgpack``.
+
 ```bash
-pip3 install msgpack-python
+pip install msgpack
 ```
+
+Note: You need to install the new version ``msgpack``, not the old ``msgpack-python``.
 
 To ensure the binary msgpack is being used, look for a log when the server and bots start up:
 ```bash
