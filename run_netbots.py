@@ -18,7 +18,7 @@ def run_python_in_terminal(title, command):
             "osascript",            # one-liner AppleScript
             "-e", f'tell application "Terminal" to activate',
             "-e", f'tell application "Terminal" to do script "{osa_cmd}"'
-        ])
+        ], check=True)
     else:
         # Linux: try gnome-terminal or xterm
         command = f'python3 {command}'
