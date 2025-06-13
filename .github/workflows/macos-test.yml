@@ -1,0 +1,20 @@
+name: macOS Launch Test
+
+on:
+  workflow_dispatch:          # manual trigger button
+  push:                       # or run on every push
+    branches: [ main ]
+
+jobs:
+  run-launcher:
+    runs-on: macos-14         # Apple-silicon runner
+    steps:
+      - uses: actions/checkout@v4
+
+      # Optional: set up a newer Python if you need it
+      # - uses: actions/setup-python@v5
+      #   with: { python-version: "3.12" }
+
+      - name: Run the launcher
+        run: |
+          python3 launcher.py
