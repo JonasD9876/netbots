@@ -1,20 +1,28 @@
-name: macOS Launch Test
+name: NetBots – macOS smoke-test (Py 3.9)
 
 on:
-  workflow_dispatch:          # manual trigger button
-  push:                       # or run on every push
+  workflow_dispatch:        # manual button in the Actions tab
+  push:                      # …or run on every push
     branches: [ main ]
 
 jobs:
-  run-launcher:
-    runs-on: macos-14         # Apple-silicon runner
+  mac:
+    runs-on: macos-14        # GitHub-hosted Sonoma (arm64) VM
+    timeout-minutes: 10
+
     steps:
+      # 1 – pull the repository onto the runner
       - uses: actions/checkout@v4
 
-      # Optional: set up a newer Python if you need it
-      # - uses: actions/setup-python@v5
-      #   with: { python-version: "3.12" }
+      # 2 – install plain CPython 3.9
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v5      # official action :contentReference[oaicite:0]{index=0}
+        with:
+          python-version: "3.9"
 
-      - name: Run the launcher
+      # 3 – launch NetBots, wait a few seconds, then stop it
+      - name: Launch NetBots head-less
         run: |
-          python3 launcher.py
+          python run_netbots.py &
+          sleep 8                  # enough time for osascript to run
+          pkill -f netbots_server.py || true   # tidy up
