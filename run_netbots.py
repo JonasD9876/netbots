@@ -7,14 +7,18 @@ def run_python_in_terminal(title, command):
         # Windows: use 'start' in a new cmd window
         subprocess.Popen(f'start "{title}" cmd /K {"python " + command}', shell=True)
     elif sys.platform == "darwin":
-        # macOS: use AppleScript to open new Terminal tabs or windows
-        apple_script = f'''
-        tell application "Terminal"
-            activate
-            do script python3 "{command}"
-        end tell
-        '''
-        subprocess.Popen(["osascript", "-e", apple_script])
+        # ---- macOS ---------------------------------------------------------
+        cwd        = os.getcwd()                     # keep same working dir
+        shell_cmd  = f'cd {shlex.quote(cwd)} && python3 {command}'
+
+        # Escape double-quotes that might appear inside shell_cmd
+        osa_cmd    = shell_cmd.replace('"', r'\"')
+
+        subprocess.Popen([
+            "osascript",            # one-liner AppleScript
+            "-e", f'tell application "Terminal" to activate',
+            "-e", f'tell application "Terminal" to do script "{osa_cmd}"'
+        ])
     else:
         # Linux: try gnome-terminal or xterm
         command = f'python3 {command}'
