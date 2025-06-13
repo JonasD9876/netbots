@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import os
+import shlex
 
 def run_python_in_terminal(title, command):
     if sys.platform.startswith("win"):
