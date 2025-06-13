@@ -3,10 +3,19 @@ import sys
 import os
 import shlex
 
+PY = sys.executable                    # ← interpreter inside the current env
+CWD = os.getcwd()
+
 def run_python_in_terminal(title, command):
+
     if sys.platform.startswith("win"):
-        # Windows: use 'start' in a new cmd window
-        subprocess.Popen(f'start "{title}" cmd /K {"python " + command}', shell=True)
+        # Windows: one-liner passed to the shell so `start` is understood
+        cmdline = (
+            f'start "{title}" cmd /K '           # open titled window, keep open
+            f'cd /d "{CWD}" ^&^& '               # stay in the repo folder
+            f'"{PY}" {command}'                  # run with current env’s Python
+        )
+        subprocess.Popen(cmdline, shell=True)    # <-- STRING, not list! ✔︎
     elif sys.platform == "darwin":
         # ---- macOS ---------------------------------------------------------
         cwd        = os.getcwd()                     # keep same working dir
@@ -26,12 +35,15 @@ def run_python_in_terminal(title, command):
         )
         # --------------------------------------------------------
     else:
-        # Linux: try gnome-terminal or xterm
-        command = f'python3 {command}'
+        shell_cmd = f'cd {shlex.quote(CWD)} && "{PY}" {command}'
         try:
-            subprocess.Popen(["gnome-terminal", "--", "bash", "-c", f'{command}; exec bash'])
+            subprocess.Popen([
+                "gnome-terminal", "--", "bash", "-c", f'{shell_cmd}; exec bash'
+            ])
         except FileNotFoundError:
-            subprocess.Popen(["xterm", "-e", f'{command}; bash'])
+            subprocess.Popen([
+                "xterm", "-e", f'{shell_cmd}; bash'
+            ])
 
 # Set working directory to script location
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
