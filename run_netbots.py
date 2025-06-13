@@ -15,11 +15,16 @@ def run_python_in_terminal(title, command):
         # Escape double-quotes that might appear inside shell_cmd
         osa_cmd    = shell_cmd.replace('"', r'\"')
 
-        subprocess.Popen([
-            "osascript",            # one-liner AppleScript
-            "-e", f'tell application "Terminal" to activate',
-            "-e", f'tell application "Terminal" to do script "{osa_cmd}"'
-        ], check=True)
+        # <-- the important change ------------------------------
+        subprocess.run(
+            [
+                "osascript",
+                "-e", 'tell application "Terminal" to activate',
+                "-e", f'tell application "Terminal" to do script "{osa_cmd}"'
+            ],
+            check=True                                    # raises if exit≠0
+        )
+        # --------------------------------------------------------
     else:
         # Linux: try gnome-terminal or xterm
         command = f'python3 {command}'
