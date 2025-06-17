@@ -35,7 +35,7 @@ def run_python_in_terminal(title, command):
         )
         # --------------------------------------------------------
     else:
-        shell_cmd = f'cd {shlex.quote(CWD)} && "{PY}" {command}'
+        shell_cmd = f'cd {shlex.quote(CWD)} && {PY} {command}'
         try:
             subprocess.Popen([
                 "gnome-terminal", "--", "bash", "-c", f'{shell_cmd}; exec bash'
